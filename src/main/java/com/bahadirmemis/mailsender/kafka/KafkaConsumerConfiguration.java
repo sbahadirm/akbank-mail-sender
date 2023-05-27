@@ -1,4 +1,4 @@
-package com.bahadirmemis.kafka;
+package com.bahadirmemis.mailsender.kafka;
 
 import com.bahadirmemis.mailsender.MailSendRequestDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -31,8 +31,8 @@ public class KafkaConsumerConfiguration {
 
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, MailSendRequestDto> kafkaListenerContainerFactory(){
-        ConcurrentKafkaListenerContainerFactory<String, MailSendRequestDto> factory
-                = new ConcurrentKafkaListenerContainerFactory<>();
+
+        ConcurrentKafkaListenerContainerFactory<String, MailSendRequestDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
 
         factory.setConsumerFactory(consumerFactory());
 
@@ -42,13 +42,14 @@ public class KafkaConsumerConfiguration {
     @Bean
     public ConsumerFactory<String, MailSendRequestDto> consumerFactory(){
 
-        Map<String, Object> configMap = new HashMap<>();
-        configMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaAddress);
-        configMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-        configMap.put(JsonDeserializer.VALUE_DEFAULT_TYPE, MailSendRequestDto.class);
-        configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        Map<String, Object> config = new HashMap<>();
+        config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaAddress);
+        config.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        config.put(JsonDeserializer.VALUE_DEFAULT_TYPE, MailSendRequestDto.class);
+        config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
-        return new DefaultKafkaConsumerFactory<>(configMap);
+        return new DefaultKafkaConsumerFactory<>(config);
     }
+
 }

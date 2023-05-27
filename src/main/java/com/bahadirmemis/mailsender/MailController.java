@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
+
 /**
  * @author Bahadır Memiş
  * @since 1.0.0
@@ -37,6 +39,14 @@ public class MailController {
 //      mailService.sendMail(mailSendRequestDto);
 //    }
 
+  }
+
+  @PutMapping("/{id}")
+  public String updatePrice(@PathVariable Long id, @RequestParam BigDecimal price){
+    String test = id + " idli ürünün fiyatı " + price + " TL olarak güncellendi!";
+    System.out.println(test);
+
+    return test;
   }
 
 }

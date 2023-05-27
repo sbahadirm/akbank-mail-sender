@@ -1,4 +1,4 @@
-package com.bahadirmemis.kafka;
+package com.bahadirmemis.mailsender.kafka;
 
 import com.bahadirmemis.mailsender.MailSendRequestDto;
 import com.bahadirmemis.mailsender.MailService;
