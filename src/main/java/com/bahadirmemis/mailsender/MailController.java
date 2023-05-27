@@ -13,7 +13,10 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 @RequestMapping("/api/v1/mails")
+@RequiredArgsConstructor
 public class MailController {
+
+  private final MailService mailService;
 
   @GetMapping("/default-mail-address")
   public String getMailAddress() {
@@ -25,14 +28,15 @@ public class MailController {
 
     System.out.println(mailSendRequestDto);
 
-    //for (int i = 0; i < 10; i++){
-    //
-    //  mailSendRequestDto.setBody(mailSendRequestDto.getBody() + "-" + i);
-    //
-    //  mailService.sendMail(mailSendRequestDto);
-    //}
+    return mailService.sendMail(mailSendRequestDto);
 
-    return true;
+//    for (int i = 0; i < 10; i++){
+//
+//      mailSendRequestDto.setBody(mailSendRequestDto.getBody() + "-" + i);
+//
+//      mailService.sendMail(mailSendRequestDto);
+//    }
+
   }
 
 }
